@@ -1,11 +1,19 @@
 import express from 'express';
+import userRouter from '../routes/userRoutes'
+
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, TypeScript with Express!');
-});
+app.use(cors())
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use('/users', userRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
